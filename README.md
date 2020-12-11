@@ -25,9 +25,8 @@
 | shipping_from_area | integer    | null: false                       |
 | shipping_duration  | integer    | null: false                       |
 | price              | integer    | null: false                       |
-| fee                | integer    | null: false                       | ※
-| profit             | integer    | null: false                       | ※
-※ 手数料変更となっても出品時に確定した手数料・利益を適用できるようにするためitemsテーブルに保持。
+| fee                | integer    | null: false                       |
+| profit             | integer    | null: false                       |
 
 ### Association
 - belongs_to :owner, class_name: 'User'
@@ -64,7 +63,7 @@
 ## profiles テーブル
 | Column            | Type       | Options                        |
 | ----------------- | ---------- | ------------------------------ |
-| user              | references | foreign_key: true              |
+| user              | references | foreign_key: true              |
 | family_name_kanji | string     | null: false                    |
 | first_name_kanji  | string     | null: false                    |
 | family_name_kana  | string     | null: false                    |
