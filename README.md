@@ -1,16 +1,16 @@
 # テーブル設計
 
 ## users テーブル
-| Column            | Type       | Options                        |
-| ----------------- | ---------- | ------------------------------ |
-| email             | string     | null: false                    |
-| password          | string     | null: false                    |
-| nickname          | string     | null: false                    |
-| family_name_kanji | string     | null: false                    |
-| first_name_kanji  | string     | null: false                    |
-| family_name_kana  | string     | null: false                    |
-| first_name_kana   | string     | null: false                    |
-| date_of_birth     | date       | null: false                    |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| email              | string     | null: false, unique: true      |
+| encrypted_password | string     | null: false                    |
+| nickname           | string     | null: false                    |
+| family_name_kanji  | string     | null: false                    |
+| first_name_kanji   | string     | null: false                    |
+| family_name_kana   | string     | null: false                    |
+| first_name_kana    | string     | null: false                    |
+| date_of_birth      | date       | null: false                    |
 
 ### Association
 - has_many :items
@@ -31,7 +31,7 @@
 | price                 | integer    | null: false                       |
 
 ### Association
-- belongs_to :owner, class_name: 'User'
+- belongs_to :user
 - has_one :order
 
 
@@ -43,7 +43,7 @@
 
 ### Association
 - belongs_to :item
-- belongs_to :buyer, class_name: 'User'
+- belongs_to :user
 - has_one :destination
 
 
