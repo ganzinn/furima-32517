@@ -7,21 +7,35 @@ class User < ApplicationRecord
   # 半角英数字混合
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
   PASSWORD_MESSAGE = 'Include both letters and numbers'.freeze
-  validates :password, format: { with: PASSWORD_REGEX, message: PASSWORD_MESSAGE }
-
-  validates :nickname, presence: true
 
   # 全角（漢字・ひらがな・カタカナ）
   NAME_KANJI_REGEX = /\A[ぁ-んァ-ヶ一-龥々]+\z/.freeze
   NAME_KANJI_MESSAGE = 'Full-width characters'.freeze
-  validates :family_name_kanji, presence: true, format: { with: NAME_KANJI_REGEX, message: NAME_KANJI_MESSAGE }
-  validates :first_name_kanji, presence: true, format: { with: NAME_KANJI_REGEX, message: NAME_KANJI_MESSAGE }
 
   # 全角（カタカナ）
   NAME_KANA_REGEX = /\A[ァ-ヶー－]+\z/.freeze
   NAME_KANA_MESSAGE = 'Full-width katakana characters'.freeze
-  validates :family_name_kana, presence: true, format: { with: NAME_KANA_REGEX, message: NAME_KANA_MESSAGE }
-  validates :first_name_kana, presence: true, format: { with: NAME_KANA_REGEX, message: NAME_KANA_MESSAGE }
 
-  validates :date_of_birth, presence: true
+  with_options presence: true do
+    # 半角英数字混合チェック
+    with_options format: { with: PASSWORD_REGEX, message: PASSWORD_MESSAGE } do
+      validates :password
+    end
+
+    validates :nickname
+
+    # 全角（漢字・ひらがな・カタカナ）チェック
+    with_options format: { with: NAME_KANJI_REGEX, message: NAME_KANJI_MESSAGE } do
+      validates :family_name_kanji
+      validates :first_name_kanji
+    end
+
+    # 全角（カタカナ）チェック
+    with_options format: { with: NAME_KANA_REGEX, message: NAME_KANA_MESSAGE } do
+      validates :family_name_kana
+      validates :first_name_kana
+    end
+
+    validates :date_of_birth
+  end
 end
