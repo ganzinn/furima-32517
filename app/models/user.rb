@@ -16,12 +16,13 @@ class User < ApplicationRecord
   NAME_KANA_REGEX = /\A[ァ-ヶー－]+\z/.freeze
   NAME_KANA_MESSAGE = 'Full-width katakana characters'.freeze
 
-  with_options presence: true do
-    # 半角英数字混合チェック
-    with_options format: { with: PASSWORD_REGEX, message: PASSWORD_MESSAGE } do
-      validates :password
-    end
+  # 半角英数字混合チェック
+  with_options format: { with: PASSWORD_REGEX, message: PASSWORD_MESSAGE } do
+    validates :password
+  end
 
+  # 必須入力チェック
+  with_options presence: true do
     validates :nickname
 
     # 全角（漢字・ひらがな・カタカナ）チェック
