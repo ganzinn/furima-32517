@@ -21,6 +21,26 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+
+    # 出品者と異なるユーザーの場合、変更不可とする
+    move_to_index(@item)
+  end
+
+  def update
+    @item = Item.find(params[:id])
+
+    # 出品者と異なるユーザーの場合、変更不可とする
+    move_to_index(@item)
+
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def item_params
@@ -35,5 +55,11 @@ class ItemsController < ApplicationController
       :shipping_duration_id,
       :price
     ).merge(owner_id: current_user.id)
+  end
+
+  def move_to_index(item)
+    unless item.owner.id == current_user.id
+      redirect_to action: :index
+    end
   end
 end
