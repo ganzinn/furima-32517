@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   before_action :set_item, only: [:show, :edit, :update]
-  before_action -> { move_to_index(@item) }, only: [:edit, :update]
+  before_action :move_to_index, only: [:edit, :update]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -25,16 +25,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    # 出品者と異なるユーザーの場合、変更不可とする
-    move_to_index(@item)
   end
 
   def update
-    @item = Item.find(params[:id])
-
-    # 出品者と異なるユーザーの場合、変更不可とする
-    move_to_index(@item)
-
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
@@ -62,8 +55,8 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def move_to_index(item)
-    unless item.owner.id == current_user.id
+  def move_to_index
+    unless @item.owner.id == current_user.id
       redirect_to action: :index
     end
   end
