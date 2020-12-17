@@ -1,12 +1,13 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category
-  belongs_to :condition
-  belongs_to :shipping_payer
-  belongs_to :shipping_from_area
-  belongs_to :shipping_duration
+  belongs_to_active_hash :category
+  belongs_to_active_hash :condition
+  belongs_to_active_hash :shipping_payer
+  belongs_to_active_hash :shipping_from_area
+  belongs_to_active_hash :shipping_duration
 
   belongs_to :owner, class_name: 'User'
+  has_one :order
 
   has_one_attached :image
 
