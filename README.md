@@ -48,15 +48,15 @@
 
 
 ## destinations テーブル
-| Column     | Type       | Options                        |
-| ---------- | ---------- | ------------------------------ |
-| order      | references | foreign_key: true              |
-| zip_code   | string     | null: false                    |
-| prefecture | integer    | null: false                    |
-| city       | string     | null: false                    |
-| address1   | string     | null: false                    |
-| address2   | string     |                                |
-| telephone  | string     | null: false                    |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| order         | references | foreign_key: true              |
+| zip_code      | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| address1      | string     | null: false                    |
+| address2      | string     |                                |
+| telephone     | string     | null: false                    |
 
 ### Association
 - belongs_to :order
