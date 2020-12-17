@@ -45,4 +45,8 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+
+  # OrderDestinationモデルの単体テスト（RSPEC）で発生するエラーの対応策
+  # エラー内容：Mysql2::Error::ConnectionError: Lost connection to MySQL server during query
+  config.active_job.queue_adapter = :inline
 end
