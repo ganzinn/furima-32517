@@ -20,6 +20,8 @@ class OrderDestination
     validates :city
     validates :address1
     validates :telephone
+    validates :item_id  # nilチェックのみ（参照先テーブルのID存在チェックはできない）
+    validates :buyer_id # nilチェックのみ（参照先テーブルのID存在チェックはできない）
   end
 
   # 個別チェック
