@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    unless @item.owner.id == current_user.id
+    if @item.owner.id != current_user.id || Order.exists?(item_id: @item.id)
       redirect_to action: :index
     end
   end
