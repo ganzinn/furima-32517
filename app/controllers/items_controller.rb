@@ -65,8 +65,4 @@ class ItemsController < ApplicationController
       redirect_to action: :index
     end
   end
-
-  def sold_out
-    Order.exists?(item_id: item.id)
-  end
 end
